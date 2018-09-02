@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link rel="shortcut icon" href="/favicon.ico" />
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
+    <title>Project Baby Panda</title>
+
+    <style>
+
+    * {
+        box-sizing: border-box;
+    }
+    
+    body {
+        font-family: 'Raleway', sans-serif;
+        font-size: 20px;
+        margin: 0;
+        line-height: 1.5;
+    }
+
+    .app {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+        padding: 20px;
+        
+    }
+
+    .app > * {
+        display: none;
+        max-width: 700px;
+    }
+
+    .app .spinner {
+        display: block;
+    }
+
+    .loaded .app > * {
+        display: block;
+    }
+
+    .loaded .app .spinner {
+        display: none;
+    }
+
+    .clicks {
+        font-size: 40px;
+        font-weight: bold;
+        margin: 20px;
+    }
+
+    .fa-heart {
+        font-size: 150px; 
+        color: #f93838;
+        margin: 20px;
+        transition: all .1s;
+        text-shadow: 5px -1px 2px rgba(0,0,0,.5);
+    }
+
+    .fa-heart.pressed {
+        transform: scale(.97);
+        text-shadow: 0 0 2px rgba(0,0,0,.5);
+    }
+    </style>
+</head>
+<body>
+
+<div class="app">
+    <img class="spinner" src="spinner-1s-200px.gif" alt="Application is loading.">
+    <div class="intro">
+        <p>Thank you for taking time to support Jeff, Phoebe, and baby Walter!</p>
+        <p>To learn about the rare challenges this family is facing and why they need our help, head over to the <a href="https://www.gofundme.com/baby-panda-duong-medical-expenses">GoFundMe page</a>.</p>
+        <p>It's amazing to see people coming together from all over to <a href="https://www.facebook.com/lisbeth.keep/posts/2110397935646223">share posts on social media</a> and donate to the <a href="https://www.gofundme.com/baby-panda-duong-medical-expenses">GoFundMe</a>! Even if you're not able to do one of these things, we can all give a click (or hundred) on the heart below to show Jeff, Phoebe, and Walter we're thinking of them!</p>
+    </div>
+    <div class="clicks-label">Clicks from all supporters:</div>
+    <div class="clicks"></div>
+    <div class="clickable fas fa-heart"></div>
+</div>
+    
+</body>
+
+<script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.4.1/firebase-database.js"></script>
+<script>
+  
+var config = {
+    apiKey: "AIzaSyB1N1Gnml1bpZ7ZnJ8IXkXR_uyJgAwfn_4",
+    authDomain: "project-baby-panda.firebaseapp.com",
+    databaseURL: "https://project-baby-panda.firebaseio.com",
+    projectId: "project-baby-panda",
+    storageBucket: "project-baby-panda.appspot.com",
+    messagingSenderId: "57903679816"
+};
+
+firebase.initializeApp(config);
+
+var heartCountRef = firebase.database().ref('heartCount');
+
+var heart = document.querySelector(".clickable");
+
+var clicksVal = document.querySelector(".clicks");
+
+function updateClicks(val) {
+    
+    clicksVal.innerText = val.toLocaleString();
+}
+
+function incrementClicks() {
+
+    heartCountRef.transaction(function(heartCount) {
+        return (heartCount || 0) + 1;
+    });
+}
+
+function setPressedState(pressedState) {
+
+    var fn = pressedState ? "add" : "remove";
+
+    heart.classList[fn]("pressed");
+}
+
+heart.addEventListener("mousedown", (e) => {
+
+    setPressedState(true);
+    incrementClicks();
+});
+
+heart.addEventListener("touchstart", (e) => {
+
+    setPressedState(true);
+});
+
+heart.addEventListener("mouseup", function() {
+
+    setPressedState(false);
+});
+
+heart.addEventListener("touchend", function(e) {
+
+    setPressedState(false);
+});
+
+heart.addEventListener("mouseleave", function() {
+
+    setPressedState(false);
+});
+
+
+heartCountRef.on('value', function(snapshot) {
+
+    document.querySelector("body").classList.add("loaded");
+    updateClicks(snapshot.val());
+});
+
+window.addEventListener("keypress", function(e) {
+
+    if(e.keyCode === 13) {
+        incrementClicks();
+    }
+});
+</script>
+
+</html>

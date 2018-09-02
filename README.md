@@ -1,1 +1,3 @@
-# operation-panda
+# project-baby-panda
+
+https://babypanda.support
