@@ -13,7 +13,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:400,700" rel="stylesheet">
     <link rel="shortcut icon" href="/favicon.ico" />
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">
     <title>Project Baby Panda</title>
@@ -38,23 +38,21 @@
         justify-content: center;
         min-height: 100vh;
         padding: 20px;
-        
     }
 
     .app > * {
-        display: none;
         max-width: 700px;
     }
 
-    .app .spinner {
+    .clicks-label, .clicks, .clickable {
+        display: none;
+    }
+
+    .loaded .clicks-label, .loaded .clicks, .loaded .clickable {
         display: block;
     }
 
-    .loaded .app > * {
-        display: block;
-    }
-
-    .loaded .app .spinner {
+    .loaded .spinner {
         display: none;
     }
 
@@ -67,7 +65,7 @@
     .fa-heart {
         font-size: 150px; 
         color: #f93838;
-        margin: 20px;
+        margin: 10px;
         transition: all .1s;
         text-shadow: 5px -1px 2px rgba(0,0,0,.5);
     }
@@ -81,12 +79,13 @@
 <body>
 
 <div class="app">
-    <img class="spinner" src="spinner-1s-200px.gif" alt="Application is loading.">
+    
     <div class="intro">
         <p>Thank you for taking time to support Jeff, Phoebe, and baby Walter!</p>
         <p>To learn about the rare challenges this family is facing and why they need our help, head over to the <a href="https://www.gofundme.com/baby-panda-duong-medical-expenses">GoFundMe page</a>.</p>
-        <p>It's amazing to see people coming together from all over to <a href="https://www.facebook.com/lisbeth.keep/posts/2110397935646223">share posts on social media</a> and donate to the <a href="https://www.gofundme.com/baby-panda-duong-medical-expenses">GoFundMe</a>! Even if you're not able to do one of these things, we can all give a click (or hundred) on the heart below to show Jeff, Phoebe, and Walter we're thinking of them!</p>
+        <p>It's amazing to see people coming together from all over to <a href="https://www.facebook.com/lisbeth.keep/posts/2110397935646223">share posts on social media</a> and donate to the <a href="https://www.gofundme.com/baby-panda-duong-medical-expenses">GoFundMe</a>! Even if you're not able to do one of these things, we can all <strong>give a click</strong> (or hundred) on the heart below to show Jeff, Phoebe, and Walter we're thinking of them!</p>
     </div>
+    <img class="spinner" src="spinner-1s-200px.gif" alt="Application is loading.">
     <div class="clicks-label">Clicks from all supporters:</div>
     <div class="clicks"></div>
     <div class="clickable fas fa-heart"></div>
