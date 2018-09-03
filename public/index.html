@@ -95,7 +95,7 @@
 </head>
 <body>
 
-<div class="app">
+<article class="app">
     
     <div class="intro">
         <p>Thank you for taking time to support Jeff, Phoebe, and baby Walter!</p>
@@ -105,8 +105,8 @@
     <img class="spinner" src="spinner-1s-200px.gif" alt="Application is loading.">
     <div class="clicks-label">Clicks from all supporters:</div>
     <div class="clicks"></div>
-    <div class="no-select clickable fas fa-heart"></div>
-</div>
+    <div class="no-select clickable fas fa-heart" role="button" aria-label="Click to show support for Jeff, Phoebe, and Walter"></div>
+</article>
     
 </body>
 
@@ -153,12 +153,17 @@ function setPressedState(pressedState) {
 heart.addEventListener("mousedown", function() {
 
     setPressedState(true);
-    incrementClicks();
 });
 
 heart.addEventListener("touchstart", function(e) {
+    
     e.preventDefault();
     setPressedState(true);
+    incrementClicks();
+});
+
+heart.addEventListener("click", function() {
+
     incrementClicks();
 });
 
@@ -167,7 +172,7 @@ heart.addEventListener("mouseup", function() {
     setPressedState(false);
 });
 
-heart.addEventListener("touchend", function(e) {
+heart.addEventListener("touchend", function() {
 
     setPressedState(false);
 });
