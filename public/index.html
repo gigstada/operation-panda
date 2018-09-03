@@ -156,9 +156,10 @@ heart.addEventListener("mousedown", function() {
     incrementClicks();
 });
 
-heart.addEventListener("touchstart", function() {
-
+heart.addEventListener("touchstart", function(e) {
+    e.preventDefault();
     setPressedState(true);
+    incrementClicks();
 });
 
 heart.addEventListener("mouseup", function() {
