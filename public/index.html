@@ -143,13 +143,13 @@ function setPressedState(pressedState) {
     heart.classList[fn]("pressed");
 }
 
-heart.addEventListener("mousedown", (e) => {
+heart.addEventListener("mousedown", function() {
 
     setPressedState(true);
     incrementClicks();
 });
 
-heart.addEventListener("touchstart", (e) => {
+heart.addEventListener("touchstart", function() {
 
     setPressedState(true);
 });
